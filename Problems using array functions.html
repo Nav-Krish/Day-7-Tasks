@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Array functions</title>
+</head>
+<body>
+    <script>
+        //1.Solving problems using array functions on rest countries data (https://restcountries.com/v3.1/all).
+
+        //gettiing the countries details from the restcountries.com api
+        //XMLHTTP request object
+        //new keyword
+        //creating a XHR object
+
+        var request=new XMLHttpRequest()
+
+        //open a connection
+        request.open('GET','https://restcountries.com/v3.1/all')
+
+        //sendind a connection
+        request.send()
+
+        //onload event => page load
+        request.onload=function(){
+            //console.log(request.response) -->string. it will be a json file
+            // string to object -> json to obj
+            var data=JSON.parse(request.response)
+
+            //a.Get all the countries from Asia continent /region using Filter function
+            var asia=data.filter((element)=>element.region=="Asia")
+            console.log(asia)
+
+            //b.Get all the countries with a population of less than 2 lakhs using Filter function
+            var ppltn=data.filter((element)=>element.population<200000)
+            console.log(ppltn)
+
+            //c.Print the following details name, capital, flag using forEach function
+            data.forEach(element => {
+                console.log(element.name,element.capital,element.flag)
+            });
+
+            //d.Print the total population of countries using reduce function
+            var totalPopulation=data.reduce((acc,cv)=>acc+cv.population,0)
+            console.log(totalPopulation)
+
+            //e.Print the country which uses US Dollars as currency.
+            var dollar=data.filter((element)=>element.currencies?.USD!=undefined).map((element)=>element.name)
+            console.log(dollar)
+
+        }
+        
+    </script>
+</body>
+</html>
