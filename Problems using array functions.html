@@ -11,7 +11,6 @@
 
         //gettiing the countries details from the restcountries.com api
         //XMLHTTP request object
-        //new keyword
         //creating a XHR object
 
         var request=new XMLHttpRequest()
@@ -19,7 +18,7 @@
         //open a connection
         request.open('GET','https://restcountries.com/v3.1/all')
 
-        //sendind a connection
+        //sending a connection
         request.send()
 
         //onload event => page load
@@ -29,16 +28,17 @@
             var data=JSON.parse(request.response)
 
             //a.Get all the countries from Asia continent /region using Filter function
-            var asia=data.filter((element)=>element.region=="Asia")
+            var asia=data.filter((element)=>element.region=="Asia").map((element)=>element.name)
             console.log(asia)
 
             //b.Get all the countries with a population of less than 2 lakhs using Filter function
-            var ppltn=data.filter((element)=>element.population<200000)
+            var ppltn=data.filter((element)=>element.population<200000).map((element)=>element.name)
             console.log(ppltn)
 
             //c.Print the following details name, capital, flag using forEach function
             data.forEach(element => {
-                console.log(element.name,element.capital,element.flag)
+                //Printing only common names of the countries
+                console.log(`Name: ${element.name.common}, Capital: ${element.capital}, Flag: ${element.flag}`)
             });
 
             //d.Print the total population of countries using reduce function
